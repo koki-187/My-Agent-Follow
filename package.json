@@ -11,7 +11,7 @@
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
-    "dev": "echo 'Development server not yet configured' && exit 0"
+    "dev": "python3 -m http.server 3000 --directory public"
   },
   "keywords": [],
   "author": "",
