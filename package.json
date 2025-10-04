@@ -1,0 +1,17 @@
+{
+  "name": "my-agent-follow",
+  "version": "0.1.0",
+  "description": "役所調査支援システム - Real Estate Investigation Support System",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000 || python -m http.server 3000",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "real-estate",
+    "investigation",
+    "government-office"
+  ],
+  "author": "",
+  "license": "MIT"
+}
