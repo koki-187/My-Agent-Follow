@@ -1,1 +1,6 @@
-証明書名,用途,取得先,取得方法,備考
+cert_key,cert_name,applies_to_item,online,by_mail,by_counter,dept,url,notes
+urban_plan_cert,都市計画証明書,zone,○,△,○,都市計画課,https://city.example/urbanplan,横浜市は電子申請、千葉市は郵送対応
+road_ledger,道路台帳図,road_type,×,×,○,道路管理課,https://city.example/roadledger,"窓口のみ、要委任状"
+water_pipe_map,上下水道台帳,water_pipe,×,×,○,水道局,https://city.example/waterpipe,"窓口申請、取得不可地域あり"
+hazard_map,ハザードマップ,flood_map,○,×,×,危機管理課,https://city.example/hazardmap,"オンライン閲覧可"
+agri_cert,農地証明,agri_restriction,×,×,○,農業委員会,https://city.example/agricert,"窓口のみ、事前相談推奨"
