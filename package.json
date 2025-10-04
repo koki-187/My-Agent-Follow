@@ -1,0 +1,16 @@
+{
+  "name": "my-agent-follow",
+  "version": "0.1.0",
+  "description": "役所調査支援システム (Municipal Investigation Support System)",
+  "type": "module",
+  "scripts": {
+    "data:lint": "node scripts/data-validate.mjs"
+  },
+  "keywords": [
+    "municipal",
+    "investigation",
+    "support"
+  ],
+  "author": "",
+  "license": "ISC"
+}

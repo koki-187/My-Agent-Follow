@@ -1,7 +1,7 @@
-category,item_key,item_label,description,law_reference,method,related_certificate,report_section,conditions
-都市計画,zone,用途地域,指定された用途地域（例：第一種住居）,都市計画法,online,都市計画証明書,都市計画,kind!=land
-都市計画,fire_area,防火地域,防火・準防火地域の区分,建築基準法,online,都市計画証明書,都市計画,
-道路,road_type,道路種別,接道状況・道路法区分,道路法,counter,道路台帳図,道路,kind=land|house
-インフラ,water_pipe,上下水道,上水道・下水道の配管状況,水道法,counter,上下水道台帳,インフラ,zone=市街化区域
-ハザード,flood_map,洪水ハザード,洪水リスクの有無,水防法,online,ハザードマップ,ハザード,
-他法令,agri_restriction,農地法区分,農地転用・規制,農地法,counter,農地証明,他法令,kind=land
+id,category,title,required,method,conditions
+1,都市計画,用途地域,true,online,kind!=land
+2,都市計画,防火地域,false,online,none
+3,道路,道路種別,true,counter,kind=land|house
+4,インフラ,上下水道,true,counter,zone=市街化区域
+5,ハザード,洪水ハザード,false,online,none
+6,他法令,農地法区分,true,counter,kind=land

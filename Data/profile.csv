@@ -1,1 +1,6 @@
-氏名,役割,連絡先,担当範囲,備考
+key,label,type,required,options
+property_type,物件種別,select,true,土地|戸建|マンション
+location,所在地,text,true,none
+owner_name,所有者名,text,true,none
+survey_date,調査日,date,true,none
+notes,備考,textarea,false,none
