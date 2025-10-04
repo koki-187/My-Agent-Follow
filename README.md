@@ -1,80 +1,85 @@
-# My Agent Follow（MAF） - 不動産役所調査支援システム
+# My Agent Follow（役所調査支援システム）
 
-一都三県（東京都・神奈川県・埼玉県・千葉県）における不動産売買の役所調査を効率化するWebアプリです。
+![CI](https://github.com/koki-187/My-Agent-Follow/actions/workflows/ci.yml/badge.svg)
+![CodeQL](https://github.com/koki-187/My-Agent-Follow/actions/workflows/codeql.yml/badge.svg)
+![Release](https://img.shields.io/github/v/release/koki-187/My-Agent-Follow)
+
+## 概要
+My Agent Follow（MAF）は、不動産売買において必要となる「役所調査」を効率化・標準化するためのWebアプリケーションです。  
+主に一都三県（東京・神奈川・埼玉・千葉）の不動産取引に対応し、重要事項説明書や契約書作成に必要な調査を網羅的にサポートします。
+
+### 主な機能
+- ✅ 物件情報を入力 → 調査チェックリストを自動生成  
+- ✅ 調査項目ごとに「オンライン／郵送／窓口」取得方法をガイド表示  
+- ✅ 委任状・申請書・問い合わせメール文例などをテンプレートから自動生成  
+- ✅ 取得済み情報を集約して調査報告書・重説用レポートをPDF出力  
+- ✅ 成果物をNotion/CSV形式でエクスポートし、社内共有・進捗管理が可能  
 
 ---
 
-## プロジェクト概要
-MAFは物件情報の入力から、役所調査に必要なチェックリストを自動生成し、取得手段（オンライン・郵送・窓口）ごとにガイド表示、委任状/申請書テンプレートの自動提示、取得情報からレポートPDFを生成、成果物をNotionやCSVで社内共有できるシステムです。
+## 📂 ディレクトリ構成
 
-## 主な機能
-- 調査チェックリストの自動生成（CSV/Dataから展開）
-- 役所ごとの取得手段ガイド（オンライン／郵送／窓口）
-- 委任状・申請書・報告書・メール文例のテンプレ連携
-- 取得済み情報からレポートPDFを自動生成
-- Notion/CSV連携による成果物のエクスポート
-
-## ディレクトリ構成
-```
 /
-├─ Data/               # checklist_master.csv, certificates_master.csv, profile.csv
-├─ Templates/          # 委任状・報告書・メール文例テンプレート
-├─ Guides/             # 自治体別取得フロー・運用ルール
-├─ Reports/            # テスト調査レポート（東京都/神奈川/埼玉/千葉）
-├─ Tasks/              # 改善タスクリスト（CSV・Markdown）
-├─ Notion/             # Notion連携用CSVテンプレート
-├─ tools/              # PDF生成・チェックリスト展開・OCRフック方針
-└─ README.md           # プロジェクト概要・導入方法・構成説明
-```
-
-### 各フォルダの役割
-- **Data/**：各種マスタCSV（チェックリスト/証明書/プロフィール）
-- **Templates/**：委任状・報告書・メール雛形等のMarkdownテンプレート
-- **Guides/**：自治体別取得フロー（横浜/千葉）、運用ルール
-- **Reports/**：サンプル調査レポート（東京都/神奈川/埼玉/千葉）
-- **Tasks/**：改善タスクリスト（md/csv）
-- **Notion/**：成果物・タスク・レポート連携用CSVテンプレ
-- **tools/**：将来予定のPDF生成・チェックリスト展開・OCRフックの方針
+├─ Data/               # マスタデータ（checklist_master.csv, certificates_master.csv, profile.csv）
+├─ Templates/          # 委任状、報告書、重説例文、問い合わせメール文例（Markdown形式）
+├─ Guides/             # 自治体別フロー（取得フロー_横浜.md, 取得フロー_千葉.md 等）、運用ルール
+├─ Reports/            # テスト調査レポート（東京都/神奈川/埼玉/千葉の事例）
+├─ Tasks/              # 改善タスクリスト（CSV＋Markdown）
+├─ Notion/             # Notion連携用CSVテンプレ（ArtifactsDB.csv, TasksDB.csv, ReportsDB.csv）
+├─ tools/              # PDF生成やチェックリスト展開用のスクリプト
+└─ README.md
 
 ---
 
-## 導入手順
-
+## 🚀 導入方法
+### 1) クローン
 ```bash
 git clone https://github.com/koki-187/My-Agent-Follow.git
 cd My-Agent-Follow
+```
+2) 依存インストール  
+```bash
 npm install
+```
+3) DB準備  
+```bash
 npx prisma migrate dev
+```
+4) ローカル起動  
+```bash
 npm run dev
 ```
 
----
-
-## 今後の改善ロードマップ
-
-- OCR精度向上
-- API連携による自動取得
-- マルチデバイス対応UI最適化
-- 用語ツールチップ機能
-- 管理ダッシュボードの追加
+→ http://localhost:3000 でアクセス可能
 
 ---
 
-## 補足・運用ノウハウ
-
-- **Data/** のマスタCSVを編集することで、調査基準や証明書管理を一元化。
-- **Templates/** は物件・依頼者・受任者・委任事項などの差し込み対応。
-- **Guides/** の横浜・千葉フローには「オンライン／郵送／窓口」判断ポイント・準備書類リストを記載。
-- **Notion/** のCSVは項目設計済みで、Notionへのインポートにそのまま利用可能。
-
----
-
-## PWA準備メモ
-
-将来的に `/public/manifest.json` および `/public/service-worker.js` を配置予定です。  
-（現時点では未設置）
+🛠 今後の改善ロードマップ
+	•	OCR機能による取得書類の自動読取と反映
+	•	API連携による自治体オープンデータの自動取得
+	•	モバイルUI最適化（iOS/Android対応）
+	•	専門用語ツールチップ、非該当項目の折り畳みUI
+	•	進捗ダッシュボード機能の拡充
+	•	CodeQL/Dependabotによるセキュリティ自動監視
 
 ---
 
-本リポジトリはChat①〜③・役所調査シート・notion-2025-09-20.csvの統合内容をもとに構築しています。  
-改修・拡張の際はこのREADMEおよびディレクトリ構成を参照してください.
+🔒 セキュリティと運用ルール
+	•	APIキーや認証情報は必ず GitHub Actions Secrets / Vault 管理
+	•	main ブランチは PR 必須 & CI/CodeQL パス必須
+	•	脆弱性報告ルート：GitHub Security Advisories または security@
+	•	重大度に応じて SLA を定義（High: 48h以内対応 / Medium: 7日 / Low: 30日）
+
+---
+
+📦 リリース管理
+	•	バージョンは SemVer 準拠 (v1.1.0 = 拡張フェーズ完了)
+	•	CHANGELOG.md で変更履歴を管理
+	•	GitHub Releases にタグ＋リリースノートを作成
+
+---
+
+📱 PWA 対応メモ
+	•	/public/manifest.json にアイコン・カラー等を定義
+	•	/public/service-worker.js にキャッシュ制御を記載
+	•	iOS Safari 向けに apple-touch-icon, metaタグを追加
