@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id        String   @id @default(cuid())
+  name      String
+  address   String?
+  kind      String?  // "land", "house", etc.
+  zone      String?  // 用途地域 e.g., "市街化区域"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  checklistItems ChecklistItem[]
+}
+
+model ChecklistItem {
+  id              String   @id @default(cuid())
+  propertyId      String
+  category        String   // カテゴリ (都市計画, 道路, etc.)
+  itemKey         String   // item_key from CSV
+  itemLabel       String   // item_label from CSV
+  description     String?  // description from CSV
+  lawReference    String?  // law_reference from CSV
+  method          String?  // online, counter, mail
+  relatedCert     String?  // related_certificate from CSV
+  reportSection   String?  // report_section from CSV
+  isRequired      Boolean  @default(false)
+  isDone          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  @@index([propertyId])
+}
