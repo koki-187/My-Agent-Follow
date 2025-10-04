@@ -98,5 +98,6 @@ npm run test:report
 
 📱 PWA 対応メモ
 	•	/public/manifest.json にアイコン・カラー等を定義
-	•	/public/service-worker.js にキャッシュ制御を記載
+	•	/public/service-worker.js にキャッシュ制御を記載（CACHE = 'maf-cache-v2'）
 	•	iOS Safari 向けに apple-touch-icon, metaタグを追加
+	•	オフライン対応：Service Workerによる基本的なキャッシュ機能を実装
