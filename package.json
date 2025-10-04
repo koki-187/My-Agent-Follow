@@ -11,7 +11,7 @@
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
-    "dev": "echo 'Development server not yet configured' && exit 0"
+    "dev": "npx http-server public -p 3000 -c-1"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@playwright/test": "^1.55.1",
     "@types/node": "^24.6.2",
+    "http-server": "^14.1.1",
     "typescript": "^5.9.3"
   }
 }
