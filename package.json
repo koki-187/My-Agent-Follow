@@ -1,0 +1,24 @@
+{
+  "name": "my-agent-follow",
+  "version": "1.0.0",
+  "description": "![CI](https://github.com/koki-187/My-Agent-Follow/actions/workflows/ci.yml/badge.svg) ![CodeQL](https://github.com/koki-187/My-Agent-Follow/actions/workflows/codeql.yml/badge.svg) ![Release](https://img.shields.io/github/v/release/koki-187/My-Agent-Follow)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "dev": "echo 'Development server not yet configured' && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.6.2",
+    "typescript": "^5.9.3"
+  }
+}

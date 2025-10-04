@@ -52,6 +52,21 @@ npm run dev
 
 → http://localhost:3000 でアクセス可能
 
+### 5) E2Eテスト実行
+```bash
+# Playwrightブラウザインストール（初回のみ）
+npx playwright install
+
+# テスト実行
+npm test
+
+# UIモードでテスト実行
+npm run test:ui
+
+# テストレポート表示
+npm run test:report
+```
+
 ---
 
 🛠 今後の改善ロードマップ
@@ -61,6 +76,8 @@ npm run dev
 	•	専門用語ツールチップ、非該当項目の折り畳みUI
 	•	進捗ダッシュボード機能の拡充
 	•	CodeQL/Dependabotによるセキュリティ自動監視
+
+詳細は [/docs/roadmap.md](./docs/roadmap.md) を参照してください。
 
 ---
 
