@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>調査レポートPDF生成（初版）</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .control-panel {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .control-panel h2 {
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .input-group textarea {
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+
+        .checkbox-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .checkbox-item .notes {
+            margin-top: 5px;
+            padding: 8px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.secondary {
+            background-color: #6c757d;
+        }
+
+        button.secondary:hover {
+            background-color: #545b62;
+        }
+
+        #report-preview {
+            background-color: white;
+            padding: 40px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        #report-preview h1 {
+            border-bottom: 3px solid #333;
+            padding-bottom: 10px;
+        }
+
+        #report-preview h2 {
+            margin-top: 30px;
+            color: #333;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+        }
+
+        #report-preview h3 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .footnotes {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+
+        .footnote-item {
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #007bff;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .control-panel {
+                display: none !important;
+            }
+            #report-preview {
+                box-shadow: none;
+                padding: 20px;
+                display: block !important;
+            }
+        }
+
+        .instructions {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="control-panel">
+        <h2>📄 調査レポートPDF生成（初版）</h2>
+        
+        <div class="instructions">
+            <h3>使い方</h3>
+            <ol>
+                <li>各項目に調査結果を入力してください</li>
+                <li>脚注として含めたいチェック項目にチェックを入れてください</li>
+                <li>「レポート生成」ボタンでプレビューを表示</li>
+                <li>「PDF出力」ボタンでPDF形式で保存（ブラウザの印刷機能を使用）</li>
+            </ol>
+        </div>
+
+        <div class="input-group">
+            <label for="propertyTitle">物件概要:</label>
+            <input type="text" id="propertyTitle" placeholder="例: 東京都渋谷区xxx x-x-x（○○マンション）" value="東京都渋谷区恵比寿1-2-3（サンプルマンション）">
+        </div>
+
+        <div class="input-group">
+            <label for="urbanPlanning">都市計画:</label>
+            <textarea id="urbanPlanning" placeholder="用途地域、防火地域などの情報を入力">用途地域: 第一種住居地域
+防火地域: 準防火地域
+高度地区: 第二種高度地区</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="road">道路:</label>
+            <textarea id="road" placeholder="接道状況、道路種別などの情報を入力">接道: 幅員6m 公道（建築基準法42条1項1号）
+セットバック: 不要</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="infrastructure">インフラ:</label>
+            <textarea id="infrastructure" placeholder="上下水道、ガスなどの情報を入力">上水道: φ200mm配管済み
+下水道: 本下水接続済み
+ガス: 都市ガス供給区域</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="hazard">防災:</label>
+            <textarea id="hazard" placeholder="ハザードマップ、洪水リスクなどの情報を入力">洪水ハザード: 浸水想定区域外
+土砂災害: 警戒区域外
+液状化リスク: 低</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="remarks">備考:</label>
+            <textarea id="remarks" placeholder="その他特記事項">特になし</textarea>
+        </div>
+
+        <h3>チェック済み項目（脚注用）</h3>
+        <div class="checkbox-group" id="checklistItems">
+            <div class="checkbox-item">
+                <input type="checkbox" id="item1" data-notes='{"sourceUrl":"https://www.city.shibuya.tokyo.jp/urban_planning","checkedAt":"2025-01-15","by":"山田太郎"}' checked>
+                <label for="item1">用途地域確認</label>
+                <div class="notes">出典: https://www.city.shibuya.tokyo.jp/urban_planning | 取得日: 2025-01-15 | 担当: 山田太郎</div>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="item2" data-notes='{"sourceUrl":"https://www.city.shibuya.tokyo.jp/fire_area","checkedAt":"2025-01-15","by":"山田太郎"}' checked>
+                <label for="item2">防火地域確認</label>
+                <div class="notes">出典: https://www.city.shibuya.tokyo.jp/fire_area | 取得日: 2025-01-15 | 担当: 山田太郎</div>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="item3" data-notes='{"sourceUrl":"https://www.city.shibuya.tokyo.jp/road_registry","checkedAt":"2025-01-16","by":"佐藤花子"}' checked>
+                <label for="item3">道路台帳確認</label>
+                <div class="notes">出典: https://www.city.shibuya.tokyo.jp/road_registry | 取得日: 2025-01-16 | 担当: 佐藤花子</div>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="item4" data-notes='{"sourceUrl":"https://www.city.shibuya.tokyo.jp/water_supply","checkedAt":"2025-01-16","by":"佐藤花子"}' checked>
+                <label for="item4">上下水道台帳確認</label>
+                <div class="notes">出典: https://www.city.shibuya.tokyo.jp/water_supply | 取得日: 2025-01-16 | 担当: 佐藤花子</div>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="item5" data-notes='{"sourceUrl":"https://www.city.shibuya.tokyo.jp/hazard_map","checkedAt":"2025-01-17","by":"鈴木一郎"}' checked>
+                <label for="item5">ハザードマップ確認</label>
+                <div class="notes">出典: https://www.city.shibuya.tokyo.jp/hazard_map | 取得日: 2025-01-17 | 担当: 鈴木一郎</div>
+            </div>
+        </div>
+
+        <button onclick="generateReport()">📋 レポート生成</button>
+        <button onclick="printToPDF()" class="secondary">📥 PDF出力</button>
+    </div>
+
+    <div id="report-preview">
+        <!-- Report content will be generated here -->
+    </div>
+
+    <script>
+        // Load template
+        async function loadTemplate() {
+            try {
+                const response = await fetch('../Templates/報告書テンプレート.md');
+                const template = await response.text();
+                return template;
+            } catch (error) {
+                console.error('Template load error:', error);
+                // Fallback template
+                return `# 調査報告書
+
+## 物件概要
+{propertyTitle}
+
+## 都市計画
+{sections.都市計画}
+
+## 道路
+{sections.道路}
+
+## インフラ
+{sections.インフラ}
+
+## 防災
+{sections.防災}
+
+## 備考
+{sections.備考}
+
+## 出典・参考情報
+{footnotes}`;
+            }
+        }
+
+        // Collect footnotes from checked items
+        function collectFootnotes() {
+            const footnotes = [];
+            const checkboxes = document.querySelectorAll('#checklistItems input[type="checkbox"]:checked');
+            
+            checkboxes.forEach(checkbox => {
+                const notesData = checkbox.getAttribute('data-notes');
+                if (notesData) {
+                    try {
+                        const notes = JSON.parse(notesData);
+                        if (notes.sourceUrl && notes.checkedAt && notes.by) {
+                            footnotes.push({
+                                sourceUrl: notes.sourceUrl,
+                                checkedAt: notes.checkedAt,
+                                by: notes.by,
+                                label: checkbox.nextElementSibling.textContent
+                            });
+                        }
+                    } catch (e) {
+                        console.error('Failed to parse notes:', e);
+                    }
+                }
+            });
+            
+            return footnotes;
+        }
+
+        // Format footnotes as HTML
+        function formatFootnotes(footnotes) {
+            if (footnotes.length === 0) {
+                return '<p>脚注なし</p>';
+            }
+            
+            let html = '<div class="footnotes">';
+            footnotes.forEach((footnote, index) => {
+                html += `
+                    <div class="footnote-item">
+                        <strong>[${index + 1}] ${footnote.label}</strong><br>
+                        出典: ${footnote.sourceUrl}<br>
+                        取得日: ${footnote.checkedAt}<br>
+                        担当: ${footnote.by}
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            return html;
+        }
+
+        // Convert markdown headings to HTML
+        function markdownToHtml(markdown) {
+            return markdown
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Generate report preview
+        async function generateReport() {
+            // Get input values
+            const propertyTitle = document.getElementById('propertyTitle').value || '（物件情報未入力）';
+            const sections = {
+                '都市計画': document.getElementById('urbanPlanning').value || '（未入力）',
+                '道路': document.getElementById('road').value || '（未入力）',
+                'インフラ': document.getElementById('infrastructure').value || '（未入力）',
+                '防災': document.getElementById('hazard').value || '（未入力）',
+                '備考': document.getElementById('remarks').value || '（なし）'
+            };
+            
+            // Collect footnotes
+            const footnotes = collectFootnotes();
+            const footnotesHtml = formatFootnotes(footnotes);
+            
+            // Load template
+            const template = await loadTemplate();
+            
+            // Replace variables in template
+            let report = template
+                .replace('{propertyTitle}', propertyTitle)
+                .replace('{sections.都市計画}', sections['都市計画'])
+                .replace('{sections.道路}', sections['道路'])
+                .replace('{sections.インフラ}', sections['インフラ'])
+                .replace('{sections.防災}', sections['防災'])
+                .replace('{sections.備考}', sections['備考'])
+                .replace('{footnotes}', footnotesHtml);
+            
+            // Convert markdown to HTML
+            const reportHtml = markdownToHtml(report);
+            
+            // Display preview
+            const previewDiv = document.getElementById('report-preview');
+            previewDiv.innerHTML = reportHtml;
+            previewDiv.style.display = 'block';
+            
+            // Scroll to preview
+            previewDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Print to PDF using browser's print dialog
+        function printToPDF() {
+            const previewDiv = document.getElementById('report-preview');
+            if (previewDiv.style.display === 'none') {
+                alert('まずレポートを生成してください。');
+                return;
+            }
+            
+            // Trigger browser print dialog
+            window.print();
+        }
+
+        // Auto-generate report on page load
+        window.addEventListener('load', () => {
+            generateReport();
+        });
+    </script>
+</body>
+</html>
