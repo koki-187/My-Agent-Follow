@@ -37,22 +37,20 @@ My Agent Follow（MAF）は、不動産売買において必要となる「役�
 git clone https://github.com/koki-187/My-Agent-Follow.git
 cd My-Agent-Follow
 ```
-2) ローカル起動  
+2) 依存インストール  
+```bash
+npm install
+```
+3) DB準備  
+```bash
+npx prisma migrate dev
+```
+4) ローカル起動  
 ```bash
 npm run dev
 ```
 
 → http://localhost:3000 でアクセス可能
-
-### 使い方
-1. ブラウザで http://localhost:3000 にアクセス
-2. 調査項目チェックリストから項目をクリック
-3. 項目詳細ドロワーで取得方法を確認
-   - 取得方法バッジ（オンライン/郵送/窓口）
-   - 窓口名、所要日数、手数料
-   - 公式サイトへのリンク
-   - 必要な持参物
-   - 注記と自治体別ガイドへのリンク
 
 ---
 
