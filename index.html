@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Agent Follow - 取得方法ガイド</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>役所調査支援システム - 取得方法ガイド</h1>
+        </header>
+        
+        <main>
+            <section class="checklist-section">
+                <h2>調査項目チェックリスト</h2>
+                <div id="checklist" class="checklist">
+                    <!-- チェックリスト項目がここに動的に追加されます -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 項目詳細ドロワー -->
+    <div id="detail-drawer" class="drawer">
+        <div class="drawer-overlay"></div>
+        <div class="drawer-content">
+            <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+            <div class="drawer-body">
+                <h2 id="cert-name"></h2>
+                
+                <div class="method-badges" id="method-badges">
+                    <!-- メソッドバッジがここに追加されます -->
+                </div>
+                
+                <div class="detail-section">
+                    <h3>取得情報</h3>
+                    <div class="detail-item">
+                        <span class="label">窓口名:</span>
+                        <span id="dept-name"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">所要日数:</span>
+                        <span id="eta-days"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">手数料:</span>
+                        <span id="fee"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">リンク:</span>
+                        <a id="cert-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>必要な持参物</h3>
+                    <div class="placeholder-section">
+                        <p class="placeholder-text">※ 後続PRで増強予定</p>
+                        <ul id="required-items">
+                            <li>委任状（代理人の場合）</li>
+                            <li>本人確認書類</li>
+                            <li>物件情報資料</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail-section notes-section">
+                    <h3>注記</h3>
+                    <div id="notes-content"></div>
+                    <div class="guide-links">
+                        <h4>詳細な取得フローについて:</h4>
+                        <ul>
+                            <li><a href="Guides/取得フロー_横浜.md" target="_blank">横浜市 役所調査取得フロー</a></li>
+                            <li><a href="Guides/取得フロー_千葉.md" target="_blank">千葉市 役所調査取得フロー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
