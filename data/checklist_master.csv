@@ -1,0 +1,4 @@
+id,自治体,書類名,取得手段,備考
+101,さいたま市,建築計画概要書,電子申請(API),API: https://maf.example.com/api/saitama/plan
+102,さいたま市,建築台帳記載事項証明書,電子申請(API),API: https://maf.example.com/api/saitama/ledger
+103,さいたま市,道路位置指定図,電子申請(API),API: https://maf.example.com/api/saitama/road
