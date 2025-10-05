@@ -2,14 +2,31 @@ name: CI
 
 on:
   push:
-    branches: [ main, feat/* ]
+    branches: [ main, develop, feat/** ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
+  data-validation:
+    runs-on: ubuntu-latest
+    name: Data Validation
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Run CSV Validation
+        run: npm run data:lint
+
   test:
     name: E2E Tests
     runs-on: ubuntu-latest
+    needs: data-validation
     timeout-minutes: 10
     
     steps:

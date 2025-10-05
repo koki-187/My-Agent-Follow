@@ -2,11 +2,13 @@
   "name": "my-agent-follow",
   "version": "1.0.0",
   "description": "![CI](https://github.com/koki-187/My-Agent-Follow/actions/workflows/ci.yml/badge.svg) ![CodeQL](https://github.com/koki-187/My-Agent-Follow/actions/workflows/codeql.yml/badge.svg) ![Release](https://img.shields.io/github/v/release/koki-187/My-Agent-Follow)",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "data:lint": "node scripts/data-validate.mjs",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
