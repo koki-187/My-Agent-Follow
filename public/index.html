@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Agent Follow</title>
+    <meta name="description" content="不動産の役所調査支援システム">
+    <meta name="theme-color" content="#1e40af">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MAF v0.1">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+    
+    <title>My Agent Follow v0.1 - 役所調査支援システム</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -46,37 +62,64 @@
     </style>
 </head>
 <body>
+    <header>
+        <h1>My Agent Follow v0.1</h1>
+        <p>不動産の役所調査支援システム</p>
+    </header>
     <div class="container">
-        <h1>My Agent Follow</h1>
-        <p class="subtitle">役所調査支援システム</p>
-        
+        <section>
+            <h2>システム概要</h2>
+            <p>一都三県（東京・神奈川・埼玉・千葉）の役所調査を効率化するシステムです。</p>
+        </section>
+        <section>
+            <h2>主な機能</h2>
+            <ul>
+                <li>調査チェックリスト自動生成</li>
+                <li>証明書取得ガイド（オンライン/郵送/窓口）</li>
+                <li>テンプレート連携（委任状・報告書・問い合わせメール）</li>
+                <li>PDF報告書出力</li>
+                <li>Notion/CSV連携</li>
+            </ul>
+        </section>
         <div class="feature">
             <h3>📋 チェックリスト生成</h3>
             <p>物件情報に基づいて、自治体調査のチェックリストを自動生成します。</p>
         </div>
-        
         <div class="feature">
             <h3>📄 PDF レポート出力</h3>
             <p>調査結果をPDF形式のレポートとして出力できます。</p>
             <p><a href="../tools/report_pdf_generator.html" target="_blank">PDF生成ツールを開く →</a></p>
         </div>
-        
         <div class="feature">
             <h3>📊 CSV エクスポート</h3>
             <p>チェックリストをCSV形式でエクスポートし、Notion等の外部ツールと連携できます。</p>
         </div>
-        
         <div class="feature">
             <h3>🏢 自治体別ガイド</h3>
             <p>各自治体の書類取得フローとガイドを参照できます。</p>
         </div>
-
         <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
-        
         <p style="color: #666; font-size: 14px;">
             <strong>注意:</strong> 現在は開発中のため、一部機能は準備中です。<br>
             PDF生成機能は上記リンクから直接アクセスできます。
         </p>
     </div>
+    <footer>
+        <p>&copy; 2025 My Agent Follow</p>
+    </footer>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
